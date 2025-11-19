@@ -45,7 +45,7 @@ export default function Navbar() {
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const pathname = usePathname();
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Detect mobile screen size
   useEffect(() => {

@@ -6,7 +6,7 @@ import {
   FaLinkedinIn,
   FaTwitter,
   FaGithub,
-} from "react-icons/fa";
+} from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 const socialLinks = [

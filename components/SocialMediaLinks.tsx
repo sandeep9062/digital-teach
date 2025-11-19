@@ -6,19 +6,19 @@ import {
   FaLinkedinIn,
   FaTwitter,
   FaGithub,
-} from "react-icons/fa";
+} from "react-icons/fa6";
 import { motion } from "framer-motion";
 
 const socialLinks = [
   {
     icon: <FaFacebookF />,
-    href: "https://facebook.com/yourcompany",
+    href: "https://facebook.com/mycompany",
     label: "Facebook",
     color: "hover:text-gold",
   },
   {
     icon: <FaInstagram />,
-    href: "https://instagram.com/yourcompany",
+    href: "https://instagram.com/mycompany",
     label: "Instagram",
     color: "hover:text-gold",
   },

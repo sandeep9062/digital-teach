@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { FaUsers, FaLaptopCode, FaIndustry, FaBrain } from "react-icons/fa";
+import { FaUsers, FaLaptopCode, FaIndustry, FaBrain } from "react-icons/fa6";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import OurClients from "./ourClients/OurClients";
