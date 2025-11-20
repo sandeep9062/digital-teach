@@ -9,20 +9,15 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function PopupFormModal() {
   const [show, setShow] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
 
   const [form, setForm] = useState({
-    fullName: "",
-    country: "",
+    name: "",
     email: "",
-    contactNumber: "",
-    preferredContactMethod: "",
-    treatmentRequired: "",
-    description: "",
-    preferredCity: "",
-    travelDate: "",
-    budgetRange: "",
-    comments: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
 
  // const [addPopUpForm, { isLoading }] = useAddPopUpFormMutation();
@@ -55,6 +50,7 @@ export default function PopupFormModal() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const formData = new FormData();
@@ -71,6 +67,8 @@ export default function PopupFormModal() {
     } catch (error) {
       const err = error as { data?: { message?: string } };
      // toast.error(err.data?.message || "Something went wrong!");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,17 +76,11 @@ export default function PopupFormModal() {
     setShow(false);
     setSubmitted(false);
     setForm({
-      fullName: "",
-      country: "",
+      name: "",
       email: "",
-      contactNumber: "",
-      preferredContactMethod: "",
-      treatmentRequired: "",
-      description: "",
-      preferredCity: "",
-      travelDate: "",
-      budgetRange: "",
-      comments: "",
+      phone: "",
+      subject: "",
+      message: "",
     });
     setFile(null);
   };
@@ -155,8 +147,8 @@ export default function PopupFormModal() {
                   exit={{ opacity: 0, y: 20 }}
                   className="mt-6 text-center"
                 >
-                  <h2 className="mb-2 text-2xl font-bold">Thank You!</h2>
-                  <p>Your dental enquiry has been sent successfully.</p>
+                  <h3 className="text-2xl font-semibold mb-2">Thank you!</h3>
+                  <p>Your message has been successfully sent. We'll get back to you soon.</p>
                 </motion.div>
               ) : (
                 <motion.div
@@ -165,178 +157,86 @@ export default function PopupFormModal() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
                 >
-                  <h2 className="mb-6 text-2xl font-bold text-center text-gold">
-                    Plan Your Dental Trip to India
-                  </h2>
+                  <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Let’s Build Something Amazing
+          </h2>
+          <p className="mt-3 text-primary-foreground/90 text-lg md:text-xl">
+            Have a project idea? Contact us today and let's turn it into reality.
+          </p>
+        </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name, Email */}
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <input
-                        type="text"
-                        name="fullName"
-                        placeholder="Full Name"
-                        value={form.fullName}
-                        onChange={handleChange}
-                        required
-                        className="py-2 bg-transparent border-b border-gray-400 placeholder:text-gray-300 focus:outline-none focus:border-gold"
-                      />
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email Address"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                        className="py-2 bg-transparent border-b border-gray-400 placeholder:text-gray-300 focus:outline-none focus:border-gold"
-                      />
-                    </div>
+                  <motion.form
+              key="form"
+              onSubmit={handleSubmit}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className="bg-card rounded-2xl shadow-2xl p-8 md:p-12 text-card-foreground max-w-3xl mx-auto"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                <input
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="Your Name"
+                  required
+                  className="w-full px-5 py-3 rounded-lg bg-input border border-border focus:outline-none focus:ring-2 focus:ring-ring transition shadow-sm"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="Your Email"
+                  required
+                  className="w-full px-5 py-3 rounded-lg bg-input border border-border focus:outline-none focus:ring-2 focus:ring-ring transition shadow-sm"
+                />
+              </div>
 
-                    {/* Country, Contact */}
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <select
-                        name="country"
-                        value={form.country}
-                        onChange={handleChange}
-                        required
-                        className="py-2 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gold"
-                      >
-                        <option value="">Country of Residence</option>
-                        {countries.map((c) => (
-                          <option key={c} value={c}>
-                            {c}
-                          </option>
-                        ))}
-                      </select>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                <input
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="Phone Number"
+                  required
+                  className="w-full px-5 py-3 rounded-lg bg-input border border-border focus:outline-none focus:ring-2 focus:ring-ring transition shadow-sm"
+                />
+                <input
+                  type="text"
+                  name="subject"
+                  value={form.subject}
+                  onChange={handleChange}
+                  placeholder="Subject"
+                  required
+                  className="w-full px-5 py-3 rounded-lg bg-input border border-border focus:outline-none focus:ring-2 focus:ring-ring transition shadow-sm"
+                />
+              </div>
 
-                      <input
-                        type="tel"
-                        name="contactNumber"
-                        placeholder="Contact Number (+country code)"
-                        value={form.contactNumber}
-                        onChange={handleChange}
-                        required
-                        className="py-2 bg-transparent border-b border-gray-400 placeholder:text-gray-300 focus:outline-none focus:border-gold"
-                      />
-                    </div>
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                placeholder="Your Message"
+                required
+                rows={5}
+                className="w-full px-5 py-3 rounded-lg bg-input border border-border focus:outline-none focus:ring-2 focus:ring-ring transition shadow-sm mb-6"
+              ></textarea>
 
-                    {/* Contact Method & Treatment */}
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <select
-                        name="preferredContactMethod"
-                        value={form.preferredContactMethod}
-                        onChange={handleChange}
-                        required
-                        className="py-2 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gold"
-                      >
-                        <option value="">Preferred Contact Method</option>
-                        {contactMethods.map((m) => (
-                          <option key={m} value={m}>
-                            {m}
-                          </option>
-                        ))}
-                      </select>
-
-                      <select
-                        name="treatmentRequired"
-                        value={form.treatmentRequired}
-                        onChange={handleChange}
-                        required
-                        className="py-2 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gold"
-                      >
-                        <option value="">Treatment Required</option>
-                        {treatments.map((t) => (
-                          <option key={t} value={t}>
-                            {t}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    {/* Description */}
-                    <textarea
-                      name="description"
-                      placeholder="Description of Dental Concern (optional)"
-                      value={form.description}
-                      onChange={handleChange}
-                      rows={3}
-                      className="w-full py-2 bg-transparent border-b border-gray-400 placeholder:text-gray-300 focus:outline-none focus:border-gold"
-                    />
-
-                    {/* File Upload */}
-                    <div>
-                      <label className="text-sm text-gray-300">
-                        Upload Dental Reports / X-rays (optional)
-                      </label>
-                      <input
-                        type="file"
-                        accept="image/*, .pdf"
-                        onChange={handleFileChange}
-                        className="mt-1 text-sm"
-                      />
-                    </div>
-
-                    {/* Preferred City & Travel Date */}
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                      <select
-                        name="preferredCity"
-                        value={form.preferredCity}
-                        onChange={handleChange}
-                        required
-                        className="py-2 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gold"
-                      >
-                        <option value="">Preferred City in India</option>
-                        {cities.map((city) => (
-                          <option key={city} value={city}>
-                            {city}
-                          </option>
-                        ))}
-                      </select>
-
-                      <input
-                        type="date"
-                        name="travelDate"
-                        value={form.travelDate}
-                        onChange={handleChange}
-                        required
-                        className="py-2 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gold"
-                      />
-                    </div>
-
-                    {/* Budget Range */}
-                    <select
-                      name="budgetRange"
-                      value={form.budgetRange}
-                      onChange={handleChange}
-                      className="w-full py-2 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gold"
-                    >
-                      <option value="">Budget Range (optional)</option>
-                      {budgets.map((b) => (
-                        <option key={b} value={b}>
-                          {b}
-                        </option>
-                      ))}
-                    </select>
-
-                    {/* Additional Comments */}
-                    <textarea
-                      name="comments"
-                      placeholder="Additional Comments (optional)"
-                      value={form.comments}
-                      onChange={handleChange}
-                      rows={2}
-                      className="w-full py-2 bg-transparent border-b border-gray-400 placeholder:text-gray-300 focus:outline-none focus:border-gold"
-                    />
-
-                    {/* Submit */}
-                    <button
-                      type="submit"
-                      disabled={isLoading}
-                      className="w-full py-3 font-semibold text-black transition rounded bg-gold hover:bg-yellow-500 disabled:opacity-50"
-                    >
-                      {isLoading ? "Sending..." : "Submit Enquiry"}
-                    </button>
-                  </form>
+              {/* Submit */}
+              <motion.button
+                type="submit"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-primary text-primary-foreground font-semibold px-10 py-3 rounded-xl shadow-lg hover:bg-primary/90 transition"
+              >
+                Send Message
+              </motion.button>
+            </motion.form>
                 </motion.div>
               )}
             </AnimatePresence>
