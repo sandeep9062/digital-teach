@@ -117,7 +117,11 @@ const Features = () => {
           {data.map((item, i) => (
             <div
               key={i}
-              ref={(el) => (cardsRef.current[i] = el)}
+              ref={(el: HTMLDivElement | null) => {
+                if (el) {
+                  cardsRef.current[i] = el;
+                }
+              }}
               className={`p-8 rounded-3xl shadow-md cursor-pointer transition-all backdrop-blur-xl bg-gradient-to-br ${item.bg} dark:border dark:border-white/10`}
             >
               <div className="mb-6">{item.icon}</div>
