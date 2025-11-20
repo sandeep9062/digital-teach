@@ -10,7 +10,7 @@ const allCourses = [
   // (12 items) — keep the same dataset you already used (shortened for brevity)
   {
     title: "Full Stack Web Development (MERN)",
-    img: "/21.jpg",
+    img: "/1.jpg",
     description:
       "Build dynamic web applications using MongoDB, Express, React, and Node.js.",
     duration: "12 Weeks",
@@ -19,7 +19,7 @@ const allCourses = [
   },
   {
     title: "Python Programming",
-    img: "/22.jpg",
+    img: "/2.jpg",
     description:
       "Master Python for development, automation, data science, and AI applications.",
     duration: "8 Weeks",
@@ -28,7 +28,7 @@ const allCourses = [
   },
   {
     title: "Java Development (Spring Boot)",
-    img: "/23.jpg",
+    img: "/3.jpg",
     description:
       "Build enterprise applications with Java, Spring Boot, JPA, and MySQL.",
     duration: "10 Weeks",
@@ -37,7 +37,7 @@ const allCourses = [
   },
   {
     title: "Data Science & Machine Learning",
-    img: "/24.jpg",
+    img: "/4.jpg",
     description:
       "Work with data using Python, Pandas, NumPy, Scikit-Learn, and ML algorithms.",
     duration: "14 Weeks",
@@ -46,7 +46,7 @@ const allCourses = [
   },
   {
     title: "AI & Deep Learning",
-    img: "/25.jpg",
+    img: "/5.jpg",
     description: "Neural networks, CNNs, RNNs, TensorFlow and model building.",
     duration: "12 Weeks",
     instructor: "Alex Carter",
@@ -54,7 +54,7 @@ const allCourses = [
   },
   {
     title: "Cybersecurity & Ethical Hacking",
-    img: "/26.jpg",
+    img: "/6.jpg",
     description:
       "Pen testing, network security, Kali Linux, and secure coding.",
     duration: "10 Weeks",
@@ -63,7 +63,7 @@ const allCourses = [
   },
   {
     title: "Cloud & DevOps Engineering",
-    img: "/27.jpg",
+    img: "/7.jpg",
     description: "AWS, Docker, Kubernetes, Terraform & CI/CD.",
     duration: "16 Weeks",
     instructor: "Sophia Lee",
@@ -71,7 +71,7 @@ const allCourses = [
   },
   {
     title: "Mobile App Development (Flutter)",
-    img: "/28.jpg",
+    img: "/2.jpg",
     description: "Android/iOS apps with Flutter & Firebase.",
     duration: "10 Weeks",
     instructor: "Kevin Adams",
@@ -79,7 +79,7 @@ const allCourses = [
   },
   {
     title: "React & Next.js Frontend",
-    img: "/29.jpg",
+    img: "/6.jpg",
     description: "React, Next.js, Tailwind & SSR/SSG patterns.",
     duration: "6 Weeks",
     instructor: "Nina Patel",
@@ -87,7 +87,7 @@ const allCourses = [
   },
   {
     title: "DSA for Interviews",
-    img: "/210.jpg",
+    img: "/2.jpg",
     description: "Algorithms, data structures, and interview prep.",
     duration: "12 Weeks",
     instructor: "Amit Verma",
@@ -95,7 +95,7 @@ const allCourses = [
   },
   {
     title: "UI/UX Design (Figma)",
-    img: "/211.jpg",
+    img: "/7.jpg",
     description: "Figma, prototyping, design systems.",
     duration: "6 Weeks",
     instructor: "Lara Collins",
@@ -103,7 +103,7 @@ const allCourses = [
   },
   {
     title: "Software Testing",
-    img: "/212.jpg",
+    img: "/5.jpg",
     description: "Manual & automated testing with Selenium and APIs.",
     duration: "8 Weeks",
     instructor: "Mark Wilson",
