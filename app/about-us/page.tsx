@@ -5,10 +5,11 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { FaUsers, FaLaptopCode, FaIndustry, FaBrain } from "react-icons/fa6";
 import { AiFillCheckCircle } from "react-icons/ai";
-import { useState, useEffect } from "react";
 import OurClients from "./ourClients/OurClients";
 import OurStory from "./ourStory/OurStory";
-import CTAWithForm from "../../components/CTAWithForm";
+import CTAWithForm from "@/components/CTAWithForm";
+import { FaUserGraduate, FaChalkboardTeacher, FaLightbulb, FaRocket } from "react-icons/fa";
+
 
 const aboutStats = [
   { icon: <FaUsers className="w-6 h-6" />, label: "Students Mentored", value: "500+" },
@@ -26,25 +27,34 @@ const missionPoints = [
   "Fostering innovation, creativity, and problem-solving",
 ];
 
+const whyChooseUsPoints = [
+  {
+    icon: <FaUserGraduate className="w-8 h-8 text-blue-500" />,
+    title: "Expert-Led Training",
+    description: "Learn from industry professionals with years of real-world experience.",
+  },
+  {
+    icon: <FaChalkboardTeacher className="w-8 h-8 text-blue-500" />,
+    title: "Hands-On Projects",
+    description: "Build a strong portfolio with practical, hands-on project work.",
+  },
+  {
+    icon: <FaLightbulb className="w-8 h-8 text-blue-500" />,
+    title: "Career Guidance",
+    description: "Receive personalized mentorship and guidance to achieve your career goals.",
+  },
+  {
+    icon: <FaRocket className="w-8 h-8 text-blue-500" />,
+    title: "Innovation Focused",
+    description: "Stay ahead with a curriculum focused on the latest industry trends.",
+  },
+];
+
+
 export default function AboutPage() {
-  const [darkMode, setDarkMode] = useState(false);
-
-  // Optional: Remember user preference in localStorage
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  
-
   return (
-    <div className={darkMode ? "dark" : ""}>
-      <main className="min-h-screen pt-20 mt-30 text-gray-800 dark:text-gray-100 bg-white dark:bg-darkbg1 px-4 md:px-8 lg:px-12 transition-colors duration-300">
-        
-
+    <div>
+      <main className="min-h-screen pt-20 mt-30 text-foreground bg-background px-4 md:px-8 lg:px-12 transition-colors duration-300">
         {/* Hero Section */}
         <motion.section
           initial={{ opacity: 0, y: 40 }}
@@ -61,9 +71,9 @@ export default function AboutPage() {
             priority
           />
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-6">
-            About <span className="text-blue-800 dark:text-blue-400">Vpro</span>Tech
+            About <span className="text-primary">Vpro</span>Tech
           </h1>
-          <p className="md:text-lg text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+          <p className="md:text-lg text-base text-muted-foreground leading-relaxed">
             Empowering students with knowledge, practical experience, and mentorship. We help learners gain the skills and confidence to thrive in the tech world.
           </p>
         </motion.section>
@@ -83,13 +93,13 @@ export default function AboutPage() {
           </div>
 
           <div>
-            <h2 className=" font-bold mb-4 text-3xl md:text-4xl text-primary dark:text-blue-300">
+            <h2 className=" font-bold mb-4 text-3xl md:text-4xl text-primary">
               Our Mission
             </h2>
-            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground mb-4 leading-relaxed">
               At <strong>VproTech</strong>, our mission is to guide students to achieve their goals through hands-on learning, mentorship, and practical experience.
             </p>
-            <p className="text-base md:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
               Founded in March 2020 by Rajat Kumar, VProTech Digital provides industrial training for B.Tech, Diploma, BCA, and MCA students. Our trainers specialize in web development, Android apps, SEO, social media marketing, and other skills through 6-week and 6-month programs.
             </p>
           </div>
@@ -106,11 +116,11 @@ export default function AboutPage() {
           className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center"
         >
           <div>
-            <h2 className="text-2xl font-bold mb-4 text-primary dark:text-blue-300">What We Do</h2>
-            <ul className="space-y-4 md:text-lg text-base text-gray-700 dark:text-gray-300">
+            <h2 className="text-2xl font-bold mb-4 text-primary">What We Do</h2>
+            <ul className="space-y-4 md:text-lg text-base text-muted-foreground">
               {missionPoints.map((point, index) => (
                 <li key={index} className="flex gap-3 items-start">
-                  <AiFillCheckCircle className="text-gold dark:text-yellow-400 w-5 h-5 mt-1" />
+                  <AiFillCheckCircle className="text-gold w-5 h-5 mt-1" />
                   <span>{point}</span>
                 </li>
               ))}
@@ -133,20 +143,43 @@ export default function AboutPage() {
           className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 text-center max-w-6xl mx-auto mb-20"
         >
           {aboutStats.map((stat, index) => (
-            <div key={index} className="bg-muted dark:bg-[#1E1E20] p-6 rounded-2xl shadow-sm hover:shadow-md transition">
-              <div className="mb-3 flex justify-center text-gold dark:text-yellow-400">{stat.icon}</div>
-              <h3 className="text-2xl font-bold text-primary dark:text-blue-300">{stat.value}</h3>
-              <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 mt-1">{stat.label}</p>
+            <div key={index} className="bg-muted p-6 rounded-2xl shadow-sm hover:shadow-md transition">
+              <div className="mb-3 flex justify-center text-gold">{stat.icon}</div>
+              <h3 className="text-2xl font-bold text-primary">{stat.value}</h3>
+              <p className="text-sm md:text-base text-muted-foreground mt-1">{stat.label}</p>
             </div>
           ))}
         </motion.section>
 
         <Separator />
-      </main>
 
-      <OurStory />
-      <OurClients />
-      <CTAWithForm />
+        <OurStory />
+        
+        {/* Why Choose Us Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="max-w-7xl mx-auto py-16"
+        >
+          <h2 className="text-3xl font-bold text-center mb-12 text-primary">
+            Why Choose Us
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {whyChooseUsPoints.map((point, index) => (
+              <div key={index} className="bg-muted p-6 rounded-lg text-center">
+                <div className="flex justify-center mb-4">{point.icon}</div>
+                <h3 className="text-xl font-bold mb-2 text-primary">{point.title}</h3>
+                <p className="text-muted-foreground">{point.description}</p>
+              </div>
+            ))}
+          </div>
+        </motion.section>
+
+        <OurClients />
+        <CTAWithForm />
+      </main>
     </div>
   );
 }
