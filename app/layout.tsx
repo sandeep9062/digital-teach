@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import OffersStrip from "@/components/OffersStrip";
 import Footer from "@/components/Footer";
+import RouteTransitionWrapper from "@/components/RouteTransitionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,10 +31,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        <OffersStrip />
-        {children}
-        <Footer />
+        <RouteTransitionWrapper>
+          <Navbar />
+          <OffersStrip />
+          {children}
+          <Footer />
+        </RouteTransitionWrapper>
       </body>
     </html>
   );
