@@ -9,22 +9,10 @@ import ToggleButton from "./ToggleButton";
 import { motion, AnimatePresence } from "framer-motion";
 import SocialMediaLinks from "./SocialMediaLinks";
 
-const submenuVariants = {
-  hidden: { opacity: 0, y: 10, pointerEvents: "none" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    pointerEvents: "auto",
-    transition: { duration: 0.25, ease: "easeOut" },
-  },
-};
-
 const navLinks = [
   { name: "Home", href: "/" },
-
   { name: "About Us", href: "/about-us" },
   { name: "Services", href: "/services" },
-
   {
     name: "Student Zone",
     href: "/student-zone",
@@ -35,7 +23,6 @@ const navLinks = [
       { name: "Work With Us", href: "/student-zone/works-with-us" },
     ],
   },
-
   { name: "Blogs", href: "/blogs" },
   { name: "Contact", href: "/contact" },
 ];
@@ -47,7 +34,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Detect mobile screen size
+  // Detect mobile screen
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 1024);
     check();
@@ -70,6 +57,7 @@ export default function Navbar() {
   return (
     <header className="backdrop-blur-xl bg-gray-50 dark:bg-[#bbc4e7]/80 shadow-lg border-b border-[#D9E2FF] dark:border-[#1A2340] w-full z-100 fixed top-0">
       <div className="max-w-7xl mx-auto px-4 lg:px-6 flex justify-between items-center h-20">
+
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
@@ -110,33 +98,23 @@ export default function Navbar() {
                     </Link>
 
                     {/* DESKTOP SUBMENU */}
-
                     {hasSubmenu && (
-                      <div className="absolute left-0  top-full pt-3 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200">
+                      <div className="absolute left-0 top-full pt-3 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-all duration-200">
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
-                          animate={{
-                            opacity: 1,
-                            y: 0,
-                          }}
+                          animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.25, ease: "easeOut" }}
-                          className="bg-white shadow-2xl rounded-xl py-3 w-60 
-      border border-gray-200/60 overflow-hidden backdrop-blur-lg"
+                          className="bg-white shadow-2xl rounded-xl py-3 w-60 border border-gray-200/60 overflow-hidden backdrop-blur-lg"
                         >
                           {link.submenu.map((sub) => (
                             <motion.div
                               key={sub.name}
                               whileHover={{ x: 6 }}
-                              transition={{
-                                type: "spring",
-                                stiffness: 120,
-                                damping: 12,
-                              }}
+                              transition={{ type: "spring", stiffness: 120, damping: 12 }}
                             >
                               <Link
                                 href={sub.href}
-                                className="block px-4 py-3 text-sm text-[#1d2e55] 
-            hover:bg-[#F0F6FF] hover:text-[#2B4CFF] transition rounded-md"
+                                className="block px-4 py-3 text-sm text-[#1d2e55] hover:bg-[#F0F6FF] hover:text-[#2B4CFF] transition rounded-md"
                               >
                                 {sub.name}
                               </Link>
@@ -149,7 +127,7 @@ export default function Navbar() {
                 );
               })}
 
-              {/* CTA BUTTON */}
+              {/* CTA */}
               <Link
                 href="/contact"
                 className="bg-gradient-to-r from-[#2B4CFF] to-[#00C2FF] text-white px-6 py-2 rounded-full text-sm font-bold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 border border-blue-200/40"
@@ -164,12 +142,9 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* MOBILE ICON */}
+        {/* MOBILE MENU ICON */}
         {isMobile && (
-          <button
-            className="text-[#2B4CFF] dark:text-white"
-            onClick={() => setOpen(!open)}
-          >
+          <button className="text-[#2B4CFF] dark:text-white" onClick={() => setOpen(!open)}>
             {open ? <X size={30} /> : <Menu size={30} />}
           </button>
         )}
@@ -184,85 +159,90 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 85, damping: 22 }}
-            className="fixed top-0 right-0 w-80 h-full bg-gradient-to-b from-[#2B4CFF] via-[#274BBA] to-[#1D2A70] dark:from-[#090D1E] dark:via-[#0D152D] dark:to-[#0B1126] shadow-2xl z-50"
+            className="fixed top-0 right-0 w-80 h-full dark:bg-blue-700 bg-gray-200 shadow-2xl z-50"
           >
             {/* Drawer Header */}
-            <div className="flex items-center justify-between px-4 py-4 border-b border-blue-300/30 dark:border-blue-900/40">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/20">
               <Image src="/logo.png" alt="Logo" width={50} height={45} />
               <button
                 onClick={() => setOpen(false)}
-                className="text-white hover:text-[#FFB400]"
+                className="text-white hover:text-blue-500 transition-colors duration-300"
               >
                 <X size={28} />
               </button>
             </div>
 
-            {/* MOBILE NAV LINKS */}
-            <nav className="flex flex-col items-start px-6 py-8 gap-7">
+            {/* NAV LINKS */}
+            <nav className="flex flex-col px-6 py-6 gap-4 bg-blue-800  ">
               {navLinks.map((link) => {
                 const hasSubmenu = !!link.submenu;
-
-                return (
-                  <div key={link.name} className="w-full">
-                    {/* Main item */}
-                    <button
-                      className={`flex justify-between items-center w-full text-left text-[17px] font-medium ${
-                        pathname === link.href ? "text-[#FFB400]" : "text-white"
-                      }`}
-                      onClick={() =>
-                        hasSubmenu
-                          ? setSubmenuOpen(!submenuOpen)
-                          : setOpen(false)
-                      }
-                    >
-                      {link.name}
-                      {hasSubmenu && (
+                if (hasSubmenu) {
+                  return (
+                    <div key={link.name}>
+                      <button
+                        onClick={() => setSubmenuOpen(!submenuOpen)}
+                        className="w-full flex justify-between items-center text-lg font-semibold text-white hover:text-cyan-400"
+                      >
+                        {link.name}
                         <ChevronDown
-                          className={`${
+                          size={20}
+                          className={`transition-transform duration-300 ${
                             submenuOpen ? "rotate-180" : ""
-                          } transition`}
+                          }`}
                         />
+                      </button>
+                      {submenuOpen && (
+                        <div className="mt-2 flex flex-col gap-2 pl-4 border-l border-white/20">
+                          {link.submenu.map((subLink) => (
+                            <Link
+                              key={subLink.name}
+                              href={subLink.href}
+                              onClick={() => setOpen(false)}
+                              className="block text-white/80 hover:text-cyan-300 py-1"
+                            >
+                              {subLink.name}
+                            </Link>
+                          ))}
+                        </div>
                       )}
-                    </button>
-
-                    {/* Submenu mobile */}
-                    {hasSubmenu && submenuOpen && (
-                      <div className="ml-4 mt-3 flex flex-col gap-4">
-                        {link.submenu.map((sub) => (
-                          <Link
-                            key={sub.name}
-                            href={sub.href}
-                            onClick={() => setOpen(false)}
-                            className="text-white/90 hover:text-[#00E3FF] text-[15px] pl-2 border-l border-white/40"
-                          >
-                            {sub.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                    </div>
+                  );
+                }
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className={`text-lg font-semibold transition-colors duration-300 ${
+                      pathname === link.href
+                        ? "text-blue-500"
+                        : "text-white hover:text-blue-500"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
                 );
               })}
             </nav>
 
-            {/* CTA BUTTON */}
-            <div className="px-6 mt-3">
+            {/* CTA Button */}
+            <div className="px-6 py-3 mt-4 bg-blue-800">
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}
-                className="block text-center bg-[#00C2FF] text-blue-900 font-bold py-3 rounded-full shadow-md hover:bg-[#FFB400] hover:text-blue-900 transition-transform hover:scale-105"
+                className="block text-center bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-3 rounded-full shadow-lg hover:from-blue-400 hover:to-blue-600 transition-transform duration-300 hover:scale-105"
               >
                 Free Consultation
               </Link>
             </div>
 
             {/* Social Links */}
-            <div className="mt-6 px-4">
+            <div className="mt-6 px-6 flex bg-blue-800 justify-center gap-5">
               <SocialMediaLinks />
             </div>
 
-            {/* Dark mode toggle */}
-            <div className="flex justify-center py-5 border-t border-blue-300/30 dark:border-blue-900/40 mt-6">
+            {/* Dark Mode Toggle */}
+            <div className="flex justify-center py-5 border-t bg-blue-400 border-white/20 mt-6">
               <ToggleButton />
             </div>
           </motion.div>

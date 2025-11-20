@@ -67,73 +67,23 @@ const Hero = () => {
         </motion.p>
 
         {/* Buttons */}
-
-        {/* Demo Form */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.65, duration: 0.7 }}
-          className="mt-14 max-w-7xl mx-auto bg-white/70 dark:bg-gray-900/60 backdrop-blur-xl 
-             p-8 rounded-2xl shadow-xl border border-white/30 dark:border-gray-700/30"
+          transition={{ delay: 0.7, duration: 0.5 }}
         >
-          <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white text-center">
-            Book Your Free Demo Now!
-          </h3>
-
-          <form className="space-y-5">
-            {/* Name */}
-            <input
-              type="text"
-              placeholder="Your name*"
-              className="w-full px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-700 
-                 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 
-                 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-
-            {/* Phone */}
-            <input
-              type="tel"
-              placeholder="Phone number"
-              className="w-full px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-700 
-                 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 
-                 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-
-            {/* Email */}
-            <input
-              type="email"
-              placeholder="Your email*"
-              className="w-full px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-700 
-                 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 
-                 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-
-            {/* Select Dropdown */}
-            <select
-              className="w-full px-5 py-3 rounded-xl border border-gray-300 dark:border-gray-700 
-                 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200
-                 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option>Choose here</option>
-              <option>Web Development Training</option>
-              <option>MERN Full-Stack Program</option>
-              <option>UI/UX Design Course</option>
-              <option>Python & ML Training</option>
-              <option>Digital Marketing</option>
-            </select>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-[#2B4CFF] to-[#00C2FF] text-white 
-                 text-white font-semibold tracking-wide shadow-lg 
-                 hover:shadow-xl hover:scale-[1.02] transition-all"
-            >
-              BOOK NOW
-            </button>
-          </form>
+          <Link
+            href="/courses"
+            className="inline-block w-52 mt-12 px-6 py-3 rounded bg-[#4007eb] text-white font-semibold hover:bg-[#3004b5] transition"
+          >
+            Explore Our Courses
+          </Link>
+          <Link
+            href="/services"
+            className="inline-block w-52 mt-12 ml-5 px-6 py-3 rounded  bg-[#4007eb] text-white font-semibold hover:bg-[#3004b5]  transition"
+          >
+            Explore Our Services
+          </Link>
         </motion.div>
       </motion.div>
     </section>
