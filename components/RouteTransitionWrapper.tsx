@@ -18,7 +18,7 @@ export default function RouteTransitionWrapper({
 
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [pathname]);
