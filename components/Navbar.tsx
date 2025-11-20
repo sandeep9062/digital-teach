@@ -57,7 +57,6 @@ export default function Navbar() {
   return (
     <header className="backdrop-blur-xl bg-gray-50 dark:bg-[#bbc4e7]/80 shadow-lg border-b border-[#D9E2FF] dark:border-[#1A2340] w-full z-100 fixed top-0">
       <div className="max-w-7xl mx-auto px-4 lg:px-6 flex justify-between items-center h-20">
-
         {/* Logo */}
         <Link href="/" className="flex items-center">
           <Image
@@ -110,7 +109,11 @@ export default function Navbar() {
                             <motion.div
                               key={sub.name}
                               whileHover={{ x: 6 }}
-                              transition={{ type: "spring", stiffness: 120, damping: 12 }}
+                              transition={{
+                                type: "spring",
+                                stiffness: 120,
+                                damping: 12,
+                              }}
                             >
                               <Link
                                 href={sub.href}
@@ -129,7 +132,7 @@ export default function Navbar() {
 
               {/* CTA */}
               <Link
-                href="/contact"
+                href="/consultation"
                 className="bg-gradient-to-r from-[#2B4CFF] to-[#00C2FF] text-white px-6 py-2 rounded-full text-sm font-bold shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 border border-blue-200/40"
               >
                 Free Consultation
@@ -144,7 +147,10 @@ export default function Navbar() {
 
         {/* MOBILE MENU ICON */}
         {isMobile && (
-          <button className="text-[#2B4CFF] dark:text-white" onClick={() => setOpen(!open)}>
+          <button
+            className="text-[#2B4CFF] dark:text-white"
+            onClick={() => setOpen(!open)}
+          >
             {open ? <X size={30} /> : <Menu size={30} />}
           </button>
         )}
@@ -228,7 +234,7 @@ export default function Navbar() {
             {/* CTA Button */}
             <div className="px-6 py-3 mt-4 bg-blue-800">
               <Link
-                href="/contact"
+                href="/consultation"
                 onClick={() => setOpen(false)}
                 className="block text-center bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold py-3 rounded-full shadow-lg hover:from-blue-400 hover:to-blue-600 transition-transform duration-300 hover:scale-105"
               >

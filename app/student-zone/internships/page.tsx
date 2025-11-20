@@ -5,30 +5,9 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { CourseCard } from "../components/Cards";
 import { StudentZoneHeader } from "../components/StudentZoneHeader";
-
-const internships = [
-  {
-    title: "Frontend Intern",
-    img: "/intern-frontend.jpg",
-    description: "Work on React/Next projects and UI improvements.",
-    duration: "3 Months",
-    instructor: "Team Frontend",
-  },
-  {
-    title: "Backend Intern",
-    img: "/intern-backend.jpg",
-    description: "Work on Node services, APIs and databases.",
-    duration: "3 Months",
-    instructor: "Team Backend",
-  },
-  {
-    title: "Data Intern",
-    img: "/intern-data.jpg",
-    description: "Assist ML engineers with data cleaning and models.",
-    duration: "3 Months",
-    instructor: "Team Data",
-  },
-];
+import { internships } from "./_data";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function InternshipsPage() {
   const [appOpen, setAppOpen] = useState(false);
@@ -46,15 +25,15 @@ export default function InternshipsPage() {
             {internships.map((it, i) => (
               <div key={i} className="flex flex-col gap-4">
                 <CourseCard course={it} />
-                <button
+                <Button
                   onClick={() => {
                     setSelected(it);
                     setAppOpen(true);
                   }}
-                  className="w-full bg-blue-500 text-white py-2 rounded-lg"
+                  className="w-full"
                 >
                   Apply
-                </button>
+                </Button>
               </div>
             ))}
           </div>
@@ -83,42 +62,25 @@ export default function InternshipsPage() {
                   }}
                 >
                   <div className="grid gap-3">
-                    <input
-                      required
-                      placeholder="Full name"
-                      className="px-4 py-3 rounded-lg border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
-                    />
-                    <input
-                      required
-                      placeholder="Email"
-                      type="email"
-                      className="px-4 py-3 rounded-lg border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
-                    />
-                    <input
-                      placeholder="Portfolio / GitHub (optional)"
-                      className="px-4 py-3 rounded-lg border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
-                    />
+                    <Input required placeholder="Full name" />
+                    <Input required placeholder="Email" type="email" />
+                    <Input placeholder="Portfolio / GitHub (optional)" />
                     <textarea
                       placeholder="Short message"
                       rows={4}
-                      className="px-4 py-3 rounded-lg border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
+                      className="px-4 py-3 rounded-lg border bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700 w-full"
                     />
                   </div>
 
                   <div className="mt-4 flex gap-3 justify-end">
-                    <button
+                    <Button
                       type="button"
+                      variant="outline"
                       onClick={() => setAppOpen(false)}
-                      className="px-4 py-2 rounded-lg border"
                     >
                       Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-4 py-2 rounded-lg bg-blue-500 text-white"
-                    >
-                      Submit Application
-                    </button>
+                    </Button>
+                    <Button type="submit">Submit Application</Button>
                   </div>
                 </form>
               </motion.div>

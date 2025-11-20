@@ -5,36 +5,60 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export function CourseCard({ course }: { course: any }) {
   return (
-    <motion.article
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.03 }}
       transition={{ duration: 0.35 }}
-      className="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col"
+      className="h-full"
     >
-      <div className="relative w-full h-44">
-        <Image src={course.img} alt={course.title} fill className="object-cover" />
-      </div>
-
-      <div className="p-5 flex-1 flex flex-col">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{course.title}</h3>
-        <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 flex-1">{course.description}</p>
-
-        <div className="mt-4 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-          <span><strong>Duration:</strong> {course.duration}</span>
-          <span><strong>By:</strong> {course.instructor}</span>
-        </div>
-
-        <div className="mt-4">
-          <Link href={`/student-zone/courses/${encodeURIComponent(course.title)}`} className="block w-full text-center bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
-            View Course
-          </Link>
-        </div>
-      </div>
-    </motion.article>
+      <Card className="h-full flex flex-col">
+        <CardHeader>
+          <div className="relative w-full h-44 mb-4">
+            <Image
+              src={course.img}
+              alt={course.title}
+              fill
+              className="object-cover rounded-t-lg"
+            />
+          </div>
+          <CardTitle>{course.title}</CardTitle>
+        </CardHeader>
+        <CardContent className="flex-1">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            {course.description}
+          </p>
+          <div className="mt-4 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+            <span>
+              <strong>Duration:</strong> {course.duration}
+            </span>
+            <span>
+              <strong>By:</strong> {course.instructor}
+            </span>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Button asChild className="w-full">
+            <Link
+              href={`/student-zone/courses/${encodeURIComponent(course.title)}`}
+            >
+              View Course
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    </motion.div>
   );
 }
 
