@@ -3,8 +3,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useAddContactMutation } from "@/services/contactApi";
 
 const CTAWithForm = () => {
+  const [addContact, { isLoading }] = useAddContactMutation();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -24,8 +26,7 @@ const CTAWithForm = () => {
     e.preventDefault();
 
     try {
-      // Simulate API call
-      await new Promise((res) => setTimeout(res, 1200));
+      await addContact(form).unwrap();
       toast.success("Message sent successfully!");
       setSubmitted(true);
       setForm({
@@ -135,11 +136,12 @@ const CTAWithForm = () => {
               <div className="text-center">
                 <motion.button
                   type="submit"
+                  disabled={isLoading}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-primary text-primary-foreground font-semibold px-10 py-3 rounded-xl shadow-lg hover:bg-primary/90 transition"
+                  className="bg-primary text-primary-foreground font-semibold px-10 py-3 rounded-xl shadow-lg hover:bg-primary/90 transition disabled:opacity-50"
                 >
-                  Send Message
+                  {isLoading ? "Sending..." : "Send Message"}
                 </motion.button>
               </div>
             </motion.form>

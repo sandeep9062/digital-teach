@@ -21,14 +21,7 @@ export default function HeroServices() {
             We deliver cutting-edge websites, mobile apps, and digital marketing strategies that drive results. Partner with us to elevate your brand and achieve your business goals.
           </p>
 
-          <div className="mt-8 flex gap-4">
-            <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow hover:bg-gray-100 transition-transform transform hover:scale-105">
-              Request a Quote
-            </button>
-            <button className="px-6 py-3 border border-white font-semibold rounded-lg hover:bg-white/20 transition-colors">
-              Explore Our Work
-            </button>
-          </div>
+         
         </motion.div>
 
         {/* Image */}

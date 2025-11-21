@@ -6,6 +6,7 @@ import OffersStrip from "@/components/OffersStrip";
 import Footer from "@/components/Footer";
 import RouteTransitionWrapper from "@/components/RouteTransitionWrapper";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import ClientProvider from "@/components/ClientProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,13 +33,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <RouteTransitionWrapper>
-          <Navbar />
-          <OffersStrip />
-          {children}
-          <Footer />
-          <WhatsAppWidget/>
-        </RouteTransitionWrapper>
+        <ClientProvider>
+          <RouteTransitionWrapper>
+            <Navbar />
+            <OffersStrip />
+            {children}
+            <Footer />
+            <WhatsAppWidget />
+          </RouteTransitionWrapper>
+        </ClientProvider>
       </body>
     </html>
   );

@@ -3,8 +3,50 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaPhoneAlt } from "react-icons/fa";
+import { useState } from "react";
+import {toast} from "sonner";
+import { useSubmitDemoSectionMutation } from "@/services/demoSectionApi";
 
 const DemoCallBackSection = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    subject: "",
+    service: "",
+    message: "",
+  });
+
+  const [submitDemoSection, { isLoading }] = useSubmitDemoSectionMutation();
+
+  const handleChange = (e: any) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.phone) {
+      toast.error("Name and phone number are required");
+      return;
+    }
+
+    try {
+      await submitDemoSection(formData).unwrap();
+
+      toast.success("Your request has been submitted!");
+
+      setFormData({
+        name: "",
+        phone: "",
+        subject: "",
+        service: "",
+        message: "",
+      });
+    } catch (error) {
+      toast.error("Something went wrong, try again.");
+    }
+  };
+
   return (
     <section className="w-full py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
       {/* Background dotted world map */}
@@ -52,16 +94,22 @@ const DemoCallBackSection = () => {
               Get a Call Back
             </h2>
 
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               {/* Row 1 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Your Name*"
                   className="p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                   type="text"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   placeholder="Phone*"
                   className="p-3 rounded bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500"
                 />
@@ -70,13 +118,21 @@ const DemoCallBackSection = () => {
               {/* Subject */}
               <input
                 type="text"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
                 placeholder="Subject"
                 className="p-3 rounded w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               {/* Service */}
-              <select className="p-3 rounded w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500">
-                <option>--Select Service--</option>
+              <select
+                name="service"
+                value={formData.service}
+                onChange={handleChange}
+                className="p-3 rounded w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">--Select Service--</option>
                 <option>Web Development</option>
                 <option>App Development</option>
                 <option>Digital Marketing</option>
@@ -85,6 +141,9 @@ const DemoCallBackSection = () => {
 
               {/* Message */}
               <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Your Message"
                 rows={4}
                 className="p-3 rounded w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-blue-500"
@@ -93,9 +152,10 @@ const DemoCallBackSection = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-3 rounded-md text-lg"
+                disabled={isLoading}
+                className="w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-3 rounded-md text-lg disabled:opacity-60"
               >
-                Submit
+                {isLoading ? "Submitting..." : "Submit"}
               </button>
             </form>
           </div>
