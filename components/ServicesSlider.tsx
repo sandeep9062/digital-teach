@@ -4,6 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import Link from "next/link";
+import { Button } from "./ui/button";
 
 import { motion } from "framer-motion";
 import {
@@ -21,36 +23,42 @@ const services = [
     desc: "We are a Google partner and deliver powerful digital marketing strategies to help you expand your business with real growth and conversions.",
     icon: <Monitor className="w-10 h-10 text-white" />,
     color: "bg-[#2E9AFE]",
+    slug: "/services/digital-marketing",
   },
   {
     title: "Android Development",
     desc: "We build custom Android apps that streamline your business operations and deliver top-tier performance.",
     icon: <Smartphone className="w-10 h-10 text-white" />,
     color: "bg-[#2ECC71]",
+    slug: "/services/android-development",
   },
   {
     title: "Website Design",
     desc: "Using modern design concepts, we create highly optimized websites that attract customers and grow your business.",
     icon: <Layers className="w-10 h-10 text-white" />,
     color: "bg-[#6A5ACD]",
+    slug: "/services/website-design",
   },
   {
     title: "Web Development",
     desc: "From eCommerce to real estate websites, we build high-performing web solutions tailored for all industries.",
     icon: <Globe className="w-10 h-10 text-white" />,
     color: "bg-[#0093FF]",
+    slug: "/services/web-development",
   },
   {
     title: "Logo Designing",
     desc: "Need a creative brand identity? We design unique, original logos to help your business stand out beautifully.",
     icon: <Brush className="w-10 h-10 text-white" />,
     color: "bg-[#2ECC71]",
+    slug: "/services/logo-designing",
   },
   {
     title: "Interior Designing",
     desc: "We turn spaces into beautiful, functional environments with professional interior design expertise.",
     icon: <PencilRuler className="w-10 h-10 text-white" />,
     color: "bg-[#6A5ACD]",
+    slug: "/services/interior-designing",
   },
 ];
 
@@ -104,6 +112,11 @@ const ServicesSlider = () => {
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
                   {item.desc}
                 </p>
+                <Link href={item.slug} passHref>
+                  <Button className="mt-6" size={"sm"}>
+                    Learn More
+                  </Button>
+                </Link>
               </motion.div>
             </SwiperSlide>
           ))}

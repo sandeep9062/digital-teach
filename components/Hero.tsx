@@ -73,7 +73,7 @@ const Hero = () => {
           transition={{ delay: 0.7, duration: 0.5 }}
         >
           <Link
-            href="/courses"
+            href="/student-zone/courses"
             className="inline-block w-52 mt-12 px-6 py-3 rounded bg-[#4007eb] text-white font-semibold hover:bg-[#3004b5] transition"
           >
             Explore Our Courses

@@ -123,7 +123,7 @@ const WhyUs = () => {
           viewport={{ once: true }}
         >
           <a
-            href="/contact"
+            href="/consultation"
             className="px-10 py-4 rounded-full text-lg font-semibold
             bg-gradient-to-r from-blue-600 to-blue-400 
             hover:from-blue-700 hover:to-blue-500

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import OffersStrip from "@/components/OffersStrip";
 import Footer from "@/components/Footer";
 import RouteTransitionWrapper from "@/components/RouteTransitionWrapper";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +37,7 @@ export default function RootLayout({
           <OffersStrip />
           {children}
           <Footer />
+          <WhatsAppWidget/>
         </RouteTransitionWrapper>
       </body>
     </html>

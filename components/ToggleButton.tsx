@@ -40,10 +40,10 @@ const ToggleButton = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+      className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-200 transition"
       aria-label="Toggle Dark Mode"
     >
-      {isDark ? <SunIcon className="text-gold w-5 h-5" /> : <MoonIcon className="text-gray-700 w-5 h-5" />}
+      {isDark ? <SunIcon className="text-blue-900 w-5 h-5" /> : <MoonIcon className="text-gray-900 w-5 h-5" />}
     </button>
   );
 };

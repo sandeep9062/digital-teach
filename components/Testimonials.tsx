@@ -47,7 +47,7 @@ const sampleStudentReviews = [
     course: "Computer Science, Batch 2024",
     review:
       "This platform helped me understand complex topics easily. The interactive sessions and practical exercises were amazing!",
-    image: "/students/ananya.jpg",
+    image: "/2.jpg",
     rating: 5,
   },
   {
@@ -56,7 +56,7 @@ const sampleStudentReviews = [
     course: "Business Management, Batch 2023",
     review:
       "I loved the live projects and mentorship. It gave me the confidence to tackle real-world challenges.",
-    image: "/students/rohan.jpg",
+    image: "/1.jpg",
     rating: 4.5,
   },
   {
@@ -65,7 +65,7 @@ const sampleStudentReviews = [
     course: "Design & UX, Batch 2024",
     review:
       "The instructors were super supportive and the community was amazing. I learned so much in just a few months!",
-    image: "/students/priya.jpg",
+    image: "/3.jpg",
     rating: 5,
   },
   {
@@ -74,7 +74,7 @@ const sampleStudentReviews = [
     course: "Data Science, Batch 2023",
     review:
       "Hands-on exercises and clear explanations made learning fun. Highly recommend this to anyone wanting to upgrade their skills.",
-    image: "/students/aditya.jpg",
+    image: "/5.jpg",
     rating: 4,
   },
 ];
