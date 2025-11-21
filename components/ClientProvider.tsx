@@ -8,7 +8,7 @@ export default function ClientProvider({ children }: { children: React.ReactNode
   return (
     <Provider store={store}>
       {children}
-      <Toaster position="bottom-center" />
+      <Toaster position="top-center" richColors />
     </Provider>
   );
 }

@@ -1,12 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useAddConsultationMutation } from "@/services/consultationApi";
 import { Calendar } from "@/components/ui/calendar";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -34,18 +30,41 @@ export default function FreeConsultationPage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [phone, setPhone] = useState("");
+  const [addConsultation, { isLoading, isSuccess, isError, error }] =
+    useAddConsultationMutation();
+  const [apiMessage, setApiMessage] = useState("");
 
-  const handleBooking = () => {
+  useEffect(() => {
+    if (isSuccess) {
+      setApiMessage("Your appointment has been booked successfully!");
+      // Reset form fields
+      setSelectedDate(undefined);
+      setSelectedSlot("");
+      setName("");
+      setEmail("");
+      setMessage("");
+      setPhone("");
+    }
+    if (isError) {
+      setApiMessage("Something went wrong. Please try again.");
+    }
+  }, [isSuccess, isError]);
+
+  const handleBooking = async () => {
     if (!name || !email || !message || !phone)
       return alert("Please fill in all the fields.");
     if (!selectedDate || !selectedSlot)
       return alert("Please select date & time");
-    alert(
-      `Your appointment is booked!\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}\nDate: ${format(
-        selectedDate,
-        "PPP"
-      )}\nTime: ${selectedSlot}`
-    );
+
+    const consultationData = {
+      name,
+      email,
+      phone,
+      message,
+      date: format(selectedDate, "PPP"),
+      timeSlot: selectedSlot,
+    };
+    await addConsultation(consultationData);
   };
 
   return (
@@ -139,10 +158,7 @@ export default function FreeConsultationPage() {
               transition={{ delay: 0.4, duration: 0.5 }}
               className="flex flex-col md:flex-row gap-8"
             >
-              <Separator
-                orientation="vertical"
-                className="hidden md:block"
-              />
+              <Separator orientation="vertical" className="hidden md:block" />
               <div className="flex-1 space-y-8">
                 <Calendar
                   mode="single"
@@ -176,11 +192,21 @@ export default function FreeConsultationPage() {
           </CardContent>
 
           <div className="px-10 pb-8 text-center">
+            {apiMessage && (
+              <p
+                className={`mb-4 text-lg ${
+                  isError ? "text-red-500" : "text-green-500"
+                }`}
+              >
+                {apiMessage}
+              </p>
+            )}
             <Button
               className="w-full max-w-md py-3 text-lg font-bold"
               onClick={handleBooking}
+              disabled={isLoading}
             >
-              Confirm Appointment
+              {isLoading ? "Booking..." : "Confirm Appointment"}
             </Button>
           </div>
         </Card>

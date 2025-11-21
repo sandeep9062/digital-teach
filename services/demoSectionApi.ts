@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const demoSectionApi = createApi({
   reducerPath: "demoSectionApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL, // Example: https://ignotsolutions.com/api
+    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL, 
   }),
 
   tagTypes: ["DemoSection"],
@@ -11,7 +11,7 @@ export const demoSectionApi = createApi({
   endpoints: (builder) => ({
     submitDemoSection: builder.mutation({
       query: (body) => ({
-        url: "/demo-section/submit",
+        url: "/api/v1/demo-sections/submit",
         method: "POST",
         body,
       }),

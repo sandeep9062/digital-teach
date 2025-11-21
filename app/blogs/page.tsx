@@ -1,47 +1,24 @@
 "use client";
-
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useGetBlogsQuery } from "@/services/blogsApi";
+import LogoSpinner from "@/components/LogoSpinner";
 
-const blogs = [
-  {
-    id: 1,
-    title: "Why Every Business Needs a Modern Website in 2025",
-    description:
-      "From SEO to user experience, learn why an updated website is essential for brand growth.",
-    category: "Web Development",
-    image: "/location.jpg",
-    date: "Nov 18, 2025",
-    author: "Jane Doe",
-    authorImage: "/1.jpg", 
-  },
-  {
-    id: 2,
-    title: "How AI Will Transform Digital Marketing",
-    description:
-      "AI is changing how brands run ads, create content, and understand user behavior.",
-    category: "AI & Automation",
-    image: "/location1.jpg",
-    date: "Nov 10, 2025",
-    author: "John Smith",
-    authorImage: "/2.jpg",
-  },
-  {
-    id: 3,
-    title: "The Future of E-Commerce: Trends to Watch",
-    description:
-      "Discover key trends like personalization, speed, UX, and automation.",
-    category: "E-Commerce",
-    image: "/location3.jpg",
-    date: "Oct 29, 2025",
-    author: "Emily White",
-    authorImage: "/3.jpg",
-  },
-];
+interface Blog {
+  _id: string;
+  title: string;
+  slug: string;
+  desc: string;
+  image?: string;
+  category: string;
+  author: string;
+  authorImage?: string;
+  date: string;
+}
 
-const FeaturedBlogPost = ({ blog }: { blog: (typeof blogs)[0] }) => (
+const FeaturedBlogPost = ({ blog }: { blog: Blog }) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     animate={{ opacity: 1, y: 0 }}
@@ -49,11 +26,11 @@ const FeaturedBlogPost = ({ blog }: { blog: (typeof blogs)[0] }) => (
     whileHover={{ y: -5 }}
     className="lg:col-span-2 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
   >
-    <Link href={`/blogs/${blog.id}`} className="block">
+    <Link href={`/blogs/${blog.slug}`} className="block">
       <div className="md:flex">
         <div className="md:w-1/2">
           <Image
-            src={blog.image}
+            src={blog.image || "/placeholder.jpg"}
             alt={blog.title}
             width={500}
             height={500}
@@ -68,14 +45,12 @@ const FeaturedBlogPost = ({ blog }: { blog: (typeof blogs)[0] }) => (
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               {blog.title}
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6">
-              {blog.description}
-            </p>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">{blog.desc}</p>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Image
-                src={blog.authorImage}
+                src={blog.authorImage || "/default-author.png"}
                 alt={blog.author}
                 width={40}
                 height={40}
@@ -86,7 +61,7 @@ const FeaturedBlogPost = ({ blog }: { blog: (typeof blogs)[0] }) => (
                   {blog.author}
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  {blog.date}
+                  {new Date(blog.date).toLocaleDateString()}
                 </p>
               </div>
             </div>
@@ -100,7 +75,7 @@ const FeaturedBlogPost = ({ blog }: { blog: (typeof blogs)[0] }) => (
   </motion.div>
 );
 
-const BlogPostCard = ({ blog }: { blog: (typeof blogs)[0] }) => (
+const BlogPostCard = ({ blog }: { blog: Blog }) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     animate={{ opacity: 1, y: 0 }}
@@ -108,10 +83,10 @@ const BlogPostCard = ({ blog }: { blog: (typeof blogs)[0] }) => (
     whileHover={{ y: -5 }}
     className="bg-white dark:bg-gray-800 shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden transition-all flex flex-col"
   >
-    <Link href={`/blogs/${blog.id}`} className="block h-full">
+    <Link href={`/blogs/${blog.slug}`} className="block h-full">
       <div className="relative w-full h-56">
         <Image
-          src={blog.image}
+          src={blog.image || "/placeholder.jpg"}
           alt={blog.title}
           fill
           className="object-cover"
@@ -125,12 +100,12 @@ const BlogPostCard = ({ blog }: { blog: (typeof blogs)[0] }) => (
           {blog.title}
         </h2>
         <p className="text-gray-600 dark:text-gray-300 flex-grow mb-4">
-          {blog.description}
+          {blog.desc}
         </p>
         <div className="flex items-center justify-between mt-auto">
           <div className="flex items-center">
             <Image
-              src={blog.authorImage}
+              src={blog.authorImage || "/default-author.png"}
               alt={blog.author}
               width={32}
               height={32}
@@ -141,7 +116,7 @@ const BlogPostCard = ({ blog }: { blog: (typeof blogs)[0] }) => (
                 {blog.author}
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-400">
-                {blog.date}
+                {new Date(blog.date).toLocaleDateString()}
               </p>
             </div>
           </div>
@@ -155,6 +130,35 @@ const BlogPostCard = ({ blog }: { blog: (typeof blogs)[0] }) => (
 );
 
 export default function BlogsPage() {
+  const { data: blogs, isLoading, isError } = useGetBlogsQuery();
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <LogoSpinner />
+      </div>
+    );
+  }
+
+  if (isError || !blogs) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <p className="text-red-500 text-lg">
+          Failed to load blogs. Please try again later.
+        </p>
+      </div>
+    );
+  }
+
+  // Ensure there's at least one blog post
+  if (blogs.length === 0) {
+    return (
+        <div className="flex justify-center items-center min-h-screen">
+        <p className="text-gray-500 text-lg">No blogs available at the moment.</p>
+      </div>
+    )
+  }
+
   const [featuredBlog, ...otherBlogs] = blogs;
 
   return (
@@ -164,20 +168,17 @@ export default function BlogsPage() {
           Our Blog
         </h1>
         <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
-          Stay updated with the latest industry insights, tutorials, and trends from our team of experts.
+          Stay updated with the latest industry insights, tutorials, and trends
+          from our team of experts.
         </p>
       </div>
 
       <div className="max-w-7xl mx-auto">
-        {/* Featured and Other Blogs Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          {/* Featured Blog */}
-          <FeaturedBlogPost blog={featuredBlog} />
-
-          {/* Other Blogs */}
+          {featuredBlog && <FeaturedBlogPost blog={featuredBlog} />}
           <div className="lg:col-span-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-8">
-            {otherBlogs.map((blog) => (
-              <BlogPostCard key={blog.id} blog={blog} />
+            {otherBlogs.map((blog: Blog) => (
+              <BlogPostCard key={blog._id} blog={blog} />
             ))}
           </div>
         </div>
