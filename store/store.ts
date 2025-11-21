@@ -1,34 +1,30 @@
 
 // store/store.ts
 import { configureStore } from "@reduxjs/toolkit";
-
 import { blogsApi } from "@/services/blogsApi";
-
-import { contactApi } from "@/services/contactApi";
-
-import { demoStudentApi } from "@/services/demoStudentApi";
-import { demoSectionApi } from "@/services/demoSectionApi";
 import { consultationApi } from "@/services/consultationApi";
-
+import { contactApi } from "@/services/contactApi";
+import { demoSectionApi } from "@/services/demoSectionApi";
+import { demoStudentApi } from "@/services/demoStudentApi";
+import { workWithUsApi } from "@/services/workWithUsApi";
 
 const store = configureStore({
   reducer: {
-
-    [contactApi.reducerPath]: contactApi.reducer,
     [blogsApi.reducerPath]: blogsApi.reducer,
     [consultationApi.reducerPath]: consultationApi.reducer,
-
-    [demoStudentApi.reducerPath]: demoStudentApi.reducer,
+    [contactApi.reducerPath]: contactApi.reducer,
     [demoSectionApi.reducerPath]: demoSectionApi.reducer,
+    [demoStudentApi.reducerPath]: demoStudentApi.reducer,
+    [workWithUsApi.reducerPath]: workWithUsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
-
-      contactApi.middleware,
       blogsApi.middleware,
       consultationApi.middleware,
-      demoStudentApi.middleware,
+      contactApi.middleware,
       demoSectionApi.middleware,
+      demoStudentApi.middleware,
+      workWithUsApi.middleware,
     ]),
   devTools: process.env.NODE_ENV !== "production", // ✅ enable Redux DevTools in development
 });

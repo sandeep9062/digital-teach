@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+
 import { motion } from "framer-motion";
 import { FaPhoneAlt } from "react-icons/fa";
 import { useState } from "react";
@@ -75,7 +75,7 @@ const DemoCallBackSection = () => {
 
             <div className="flex items-center gap-3 mt-4 text-gray-800 dark:text-gray-200 font-medium">
               <FaPhoneAlt className="text-blue-600" />
-              CALL US AT +91 9317788822
+              CALL US AT +91-88941-10026
             </div>
           </div>
         </motion.div>

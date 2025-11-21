@@ -3,9 +3,10 @@
 
 import React, { useState } from "react";
 import { motion, Variants } from "framer-motion";
+import { toast } from "sonner";
 import { StudentZoneHeader } from "../components/StudentZoneHeader";
 import { FormField, SelectField, TextareaField } from "./components";
-import { Send, CheckCircle } from "lucide-react";
+import { Send } from "lucide-react";
 import {
   useSubmitWorkWithUsFormMutation,
   WorkWithUsPayload,
@@ -64,23 +65,61 @@ export default function WorkWithUsPage() {
     coverLetter: "",
   });
 
+  const clearForm = () => {
+    setFormData({
+      fullName: "",
+      email: "",
+      phone: "",
+      altPhone: "",
+      dob: "",
+      city: "",
+      position: "Select Position",
+      experience: "Experience Level",
+      expectedSalary: undefined,
+      availability: "Availability",
+      qualification: "",
+      college: "",
+      specialization: "",
+      graduationYear: undefined,
+      skills: "",
+      projects: "",
+      linkedin: "",
+      github: "",
+      portfolio: "",
+      designProfile: "",
+      coverLetter: "",
+    });
+  };
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev: WorkWithUsPayload) => ({ ...prev, [name]: value }));
+    if (name === "expectedSalary" || name === "graduationYear") {
+      setFormData((prev: WorkWithUsPayload) => ({
+        ...prev,
+        [name]: value === "" ? undefined : Number(value),
+      }));
+    } else {
+      setFormData((prev: WorkWithUsPayload) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await submitWorkWithUsForm(formData).unwrap();
+      toast.success("Application Submitted!", {
+        description:
+          "We have received your profile and will get back to you if you are shortlisted.",
+      });
+      clearForm();
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
       console.error("Failed to submit form:", error);
-      // You can add user-facing error handling here
+      toast.error("Failed to submit form. Please try again later.");
     }
   };
 
@@ -100,25 +139,6 @@ export default function WorkWithUsPage() {
             onSubmit={handleSubmit}
             className="bg-white dark:bg-gray-900/50 p-10 rounded-3xl shadow-2xl shadow-gray-200/50 dark:shadow-black/50 border border-gray-200/80 dark:border-gray-800"
           >
-            {isSuccess && (
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-8 flex items-center gap-4 rounded-xl bg-green-50 dark:bg-green-900/20 p-5 border border-green-200 dark:border-green-700"
-              >
-                <CheckCircle className="h-8 w-8 text-green-500 flex-shrink-0" />
-                <div>
-                  <h3 className="font-bold text-lg text-green-800 dark:text-green-200">
-                    Application Submitted!
-                  </h3>
-                  <p className="text-sm text-green-700 dark:text-green-300 mt-1">
-                    We have received your profile and will get back to you if
-                    you are shortlisted.
-                  </p>
-                </div>
-              </motion.div>
-            )}
-
             <Section>
               <SectionTitle>Personal Information</SectionTitle>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
@@ -146,7 +166,7 @@ export default function WorkWithUsPage() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="+91 12345 67890"
+                  placeholder="+91-88941-10026"
                 />
                 <FormField
                   label="Alternative Phone"
@@ -214,7 +234,7 @@ export default function WorkWithUsPage() {
                   label="Expected Salary (₹)"
                   type="number"
                   name="expectedSalary"
-                  value={formData.expectedSalary}
+                  value={formData.expectedSalary || ''}
                   onChange={handleChange}
                   placeholder="e.g., 50000"
                 />
@@ -262,7 +282,7 @@ export default function WorkWithUsPage() {
                   label="Graduation Year"
                   type="number"
                   name="graduationYear"
-                  value={formData.graduationYear}
+                  value={formData.graduationYear || ''}
                   onChange={handleChange}
                   placeholder="e.g., 2024"
                 />

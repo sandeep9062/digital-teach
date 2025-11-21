@@ -32,7 +32,7 @@ export interface WorkWithUsPayload {
 export const workWithUsApi = createApi({
   reducerPath: "workWithUsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/work-with-us`,
+    baseUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/work-with-us`,
   }),
   endpoints: (builder) => ({
     submitWorkWithUsForm: builder.mutation<

@@ -94,7 +94,7 @@ const DemoCallBackStudent = () => {
 
             <div className="flex items-center gap-3 mt-4 text-gray-700 dark:text-gray-200 font-medium">
               <FaPhoneAlt className="text-blue-600 dark:text-blue-500" />
-              CALL US AT +91 9317788822
+              CALL US AT +91-88941-10026
             </div>
           </div>
         </motion.div>
