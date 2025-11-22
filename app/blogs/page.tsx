@@ -65,9 +65,9 @@ const FeaturedBlogPost = ({ blog }: { blog: Blog }) => (
                 </p>
               </div>
             </div>
-            <span className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+            <Link href={`/blogs/${blog.slug}`} className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
               Read More &rarr;
-            </span>
+            </Link>
           </div>
         </div>
       </div>
@@ -120,9 +120,9 @@ const BlogPostCard = ({ blog }: { blog: Blog }) => (
               </p>
             </div>
           </div>
-          <span className="font-medium text-sm text-blue-600 dark:text-blue-400 hover:underline">
+          <Link href={`/blogs/${blog.slug}`} className="font-medium text-sm text-blue-600 dark:text-blue-400 hover:underline">
             Read More
-          </span>
+          </Link>
         </div>
       </div>
     </Link>
